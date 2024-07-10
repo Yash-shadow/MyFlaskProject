@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% include 'navbar.html' %}
+
+
+{% block content %}
+<div class="container-fluid">
+   <form action="" method="POST" class="form-register" >
+     
+        {{ form.hidden_tag() }}
+ 
+
+        {{ form.username.label() }}
+        {{ form.username(calss= "form-control", placeholder="User Name") }}
+
+        {{ form.password.label() }}
+        {{ form.password(calss= "form-control", placeholder="password") }}
+
+        {{ form.password_confirmation.label() }}
+        {{ form.password_confirmation(calss= "form-control", placeholder="paswword_cofirmation") }}
+
+        {{ form.email_address.label() }}
+        {{ form.email_address(calss= "form-control", placeholder="email") }}
+
+        {{ form.submit(class="btn-primary") }}
+
+
+    </form>
+</div>
+<!-- </div>
+  <div class="mb-3">
+    <label for="formGroupExampleInput2" class="form-label">{{ form.email_address.label() }}</label>
+    <input type="text" class="form" id="email_address" placeholder="Another input placeholder">
+  </div>
+  <div class="mb-3">
+    <label for="formGroupExampleInput2" class="form-label">{{ form.password.label() }}</label>
+    <input type="text" class="form" id="password" placeholder="Another input placeholder">
+  </div>
+  <div class="form-register" >
+    {{ form.password_confirmation.label() }} 
+    {{ form.password_confirmation(class="form-control", placeholder="password_confirmation") }}
+</div>
+  <div class="mb-3">
+    <label for="formGroupExampleInput2" class="form-label">{{ form.submit.label() }}
+    </label> -->
+
+<!-- <input type="button" class="form" id="submit" placeholder="Another input placeholder"> -->
+<!-- </div>
+</form>
+</div> -->
+<!-- <dev class = "container"
+<form method="POST" class="form-register" style="color:green">
+    {{ form.password.label() }} 
+    {{ form.password(class="form-control", placeholder="Password") }}
+
+
+</form> -->
+
+
+{% endblock content %}
