@@ -1,0 +1,32 @@
+<div class="modal fade" id="Modal_stackUp-{{ item.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ModalLabel">HeHehehehe</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form-control" method="POST">
+          {{selling_form.hidden_tag()}}
+          
+          <img src="static\images\Evil_laugh.gif" class="img-fluid img-thumbnail"
+            alt="Its Mine Lotr GIF">
+
+            
+    
+
+      </div>
+      <div class="modal-footer">
+
+        <input id="Stack Up" name="Stack Up" type="hidden" value="{{ item.name }}">
+
+            {{ selling_form.submit(class="btn btn-danger") }}
+            <!-- <input id="submit" name="submit" type="submit" value="I CURSE MYSELF"> -->
+
+      
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

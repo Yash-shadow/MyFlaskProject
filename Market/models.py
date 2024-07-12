@@ -34,6 +34,17 @@ class User(db.Model, UserMixin):
 
     def check_password(self, attempted_password):
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
+    
+    @property
+    def prettier_budget(self):
+        if self.budget is None:
+            return None
+        if len(str(self.budget))>=4:
+            s= f"{self.budget:,}"
+            # print(s)
+            return s
+        else: 
+            return f"{self.budget}$"
 
 
 class Item(db.Model):
@@ -48,6 +59,21 @@ class Item(db.Model):
     # def __repr__(self):
 
     #     return f'Item{id} {self.name} {price} {barcode} {description} {owner} '
+
+
+    def item_buying(self,user):
+        self.owner= user.id
+
+        db.session.commit()
+        
+        return True
+    
+    def item_selling(self):
+        self.owner= None
+        db.session.commit()
+        return True
+         
+
     
 
 

@@ -1,0 +1,32 @@
+<div class="modal fade" id="ModalWrath-{{ item.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ModalLabel">MINE</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form-control" method="POST">
+          {{purchase_form.hidden_tag()}}
+          
+          <img src="https://media1.tenor.com/m/a4qDuOMfC4IAAAAC/its-mine-lotr.gif" class="img-fluid img-thumbnail"
+            alt="Its Mine Lotr GIF">
+
+            
+    
+
+      </div>
+      <div class="modal-footer">
+
+        <input id="I CURSE MYSELF" name="I CURSE MYSELF" type="hidden" value="{{ item.name }}">
+
+            {{ purchase_form.submit(class="btn btn-primary")}}
+            <!-- <input id="submit" name="submit" type="submit" value="I CURSE MYSELF"> -->
+
+      
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

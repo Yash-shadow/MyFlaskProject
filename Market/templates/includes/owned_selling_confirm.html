@@ -1,0 +1,24 @@
+<style>
+    .modal-content {
+      background-color: #dcddc7d8;
+    }
+  </style>
+  <div class="modal fade" id="Modal-selling-{{ item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="ModalLabel">{{ item.name }}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {{ item.name }}'s Curse cannot be broken
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nope I Wanna suffer </button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal_stackUp-{{ item.id }}"> Get rid of this
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

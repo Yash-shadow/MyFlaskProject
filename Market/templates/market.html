@@ -4,7 +4,105 @@
 
 
 {% block content %}
+<style>
+.card-image {
+  height: 200px;
+  object-fit: cover; /* This ensures the image covers the area while maintaining its aspect ratio */
+}
+</style>
 
-    {% include 'card.html' %}
+<div class="container"> 
+  <h1 class="align-self-auto"> Purchase Items</h1> 
+    {% if not items %}
+    <h1 class="text-center" aria-hidden="true"> AnyMore ?</h1>
+      
+    {% else %}
+    <div class="row row-cols-4 row-cols-md-4 g-3">
+    {% for item in items %}
+    {% include './includes/items_modal.html' %}
+    {% include './includes/items_purchase_confirm.html' %}
+    {% include './includes/Modal_wrath.html' %}
     
+    
+        <div class="col">
+          <div class="card text-center" >
+            
+            <img src="static\images\{{item.name}}.jpg" class="card-img-top card-image" alt="...">
+            
+            <div class="card-body">
+              <h5 class="card-title">{{ item.name}}</h5>
+              <h5 class="card-title fw-bolder">onsale</h5> 
+              
+              
+              <div class="class-body">
+                
+                <p class="card-text text-start"> Description: {{item.desc}}</p>
+                <p class="card-text text-start"> Cost:        {{ item.price}} </p>
+              </div>
+              <br>
+              <div class="class-body">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal-MoreInfo-{{ item.id }}">More info</button>
+                <button class="btn btn-primary"   data-bs-toggle="modal" data-bs-target="#Modal-purchase-{{ item.id }}">Purchase</button>
+              </div>
+
+              <!-- <a href="{{ url_for('homepage')}}" class="btn btn-primary">buy now</a> -->
+              
+            </div>
+          </div>
+        </div>
+    
+        
+    {% endfor %}
+
+</div>      
+{% endif %}
+
+</div>  
+
+
+
+
+<div class="container"> 
+  <h1 class="align-self-auto"> Cursed Items</h1> 
+    <div class="row row-cols-4 row-cols-md-4 g-3">
+    {% for item in owned %}
+    {% include './includes/owned_modal.html' %}
+    {% include './includes/owned_selling_confirm.html' %}
+    {% include './includes/Modal_stackUp.html' %}
+    
+    
+        <div class="col">
+          <div class="card text-center" >
+            
+            <img src="static\images\{{item.name}}.jpg" class="card-img-top card-image" alt="...">
+            
+            <div class="card-body">
+              <h5 class="card-title">{{ item.name }}</h5>
+              <h5 class="card-title fw-bolder">CURSED</h5> 
+              
+              
+              <div class="class-body">
+                
+                <p class="card-text text-start"> Description: You bought an item that shouldn't be bought {{item.desc}}</p>
+                <p class="card-text text-start"> Cost: Your Life     {{ item.price}} </p>
+              </div>
+              <br>
+              <div class="class-body">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal-break-{{ item.id }}">Break my curse</button>
+                <button class="btn btn-primary"   data-bs-toggle="modal" data-bs-target="#Modal-selling-{{ item.id }}">Sell</button>
+              </div>
+
+              
+              
+            </div>
+          </div>
+        </div>
+    
+        
+    {% endfor %}
+
+</div>      
+</div> 
+
+
 {% endblock content %}

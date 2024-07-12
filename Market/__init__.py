@@ -22,10 +22,11 @@ db = SQLAlchemy(app)
 csrf = CSRFProtect(app) # need to change the expire time and try to make the secret key as dynamic 
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
-
+login_manager.login_view = "login"
+login_manager.login_message_category= 'info'
 
 from Market import routes
-
+ 
 with app.app_context():
 
     db.create_all()

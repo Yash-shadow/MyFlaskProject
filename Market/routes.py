@@ -1,19 +1,21 @@
-from flask import redirect, url_for, flash, session
+from flask import redirect, url_for, flash, session, request
 
 from Market import app, render_template
 
 from Market.models import PetType, Pet, User, Item
-from Market.forms  import RegistrationForm, LoginForm
+from Market.forms  import RegistrationForm, LoginForm, PurchaseForm, SellItemForm
 
 from flask_wtf import csrf
 
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 
+from sqlalchemy import or_
 
 from Market import db
 
 
 @app.route('/')
+@app.route('/home')
 def homepage():
 
 
@@ -44,10 +46,36 @@ def pets(pet_type):
 # @app.route('/success')
 # def success():
 #     return "Form submitted successfully!"
-@app.route('/market')
+@app.route('/market',methods=['POST', 'GET'])
+@login_required
 def market_page():
-    items= Item.query.all()
-    return render_template('market.html', items=items)
+    purchase_form = PurchaseForm()
+    selling_form = SellItemForm()
+    if request.method == 'POST'and purchase_form.validate_on_submit():
+        purchased_item = request.form.get('I CURSE MYSELF')
+        p_item_object = Item.query.filter_by(name=purchased_item).first()
+        if p_item_object:
+            p_item_object.item_buying(current_user)
+            flash(f'You have bought a cursed Object {p_item_object.name}', category="danger")
+            return redirect(url_for("market_page"))
+        
+    if request.method == 'POST'and selling_form.validate_on_submit():
+        selling_item = request.form.get('Stack Up')
+        print(selling_item)
+        s_item_object = Item.query.filter_by(name=selling_item).first()
+        if s_item_object:
+            s_item_object.item_selling()
+            flash(f'You got rid of a cursed Object {s_item_object.name} but not the curse JK', category="danger")
+            return redirect(url_for("market_page"))
+
+
+    if request.method == 'GET':
+        items = Item.query.filter(or_(Item.owner==None, Item.owner!=current_user.id)).all()
+        print(items)
+        owned= Item.query.filter(Item.owner==current_user.id).all()
+        return render_template('market.html', items=items, owned=owned, purchase_form=purchase_form,selling_form=selling_form)
+    
+    
 
 
 @app.route('/register', methods=['GET','POST'])
@@ -61,10 +89,13 @@ def register():
             db.session.add(user)
         except db.SessionError:
             print(db.sessionErr)
-            
+        
         db.session.commit()
-        return redirect(url_for('homepage'))
-    
+        attempted_user =user
+        login_user(attempted_user)
+        flash(f'Account created successfully and logged in as  {attempted_user.username}', category='success')
+        return redirect(url_for('market_page'))
+
     if form.errors !={}: 
         for err_mssage in form.errors.values():
             # print(f'There was an error with the creating an user : {err_mssage }', category= 'danger')
@@ -90,22 +121,17 @@ def login():
             return redirect(url_for('market_page'))
         else:
             flash(f'Incorrect details {attempted_user.username}',category='danger')
-        
-
-         
-        
-        
-        
+              
     return render_template("login.html", form=form)
 
 
 
 
-@app.route('/logout', methods=['Get','POST'])
+@app.route('/logout')
 def logout():
     if current_user.is_authenticated:
-        logout_user()
-        flash(f'Logout successful', category='success')
+        logout_user() 
+        flash(f'Logout successful', category='info')
     
     return redirect(url_for('homepage'))
 

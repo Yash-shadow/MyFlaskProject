@@ -41,4 +41,14 @@ class LoginForm(FlaskForm):
   
     submit = SubmitField(label = 'Login')
 
+
+class PurchaseForm(FlaskForm):
+    submit = SubmitField(label = 'I CURSE MYSELF')
+
+class SellItemForm(FlaskForm):
+    submit = SubmitField(label = 'Stack Up')
+
+
+
+
    
